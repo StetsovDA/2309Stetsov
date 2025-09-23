@@ -18,9 +18,20 @@ export const metadata: Metadata = {
 };
 
 const RootLayout = async ({ children }: Readonly<{ children: React.ReactNode }>): Promise<React.ReactElement> => {
-  let groups: GroupInterface[];
-
+ 
   // выполняется на сервере - загрузка групп
+  let groups: GroupInterface[];
+  await queryClient.prefetchQuery({
+    queryKey: ['groups'],
+    queryFn: async () => {
+      groups = await getGroupsApi();
+      console.log('Groups', groups);
+      return groups;
+    },
+  });
+
+    // выполняется на сервере - загрузка групп
+  let groups: GroupInterface[];
   await queryClient.prefetchQuery({
     queryKey: ['groups'],
     queryFn: async () => {
