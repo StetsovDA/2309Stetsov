@@ -5,11 +5,11 @@ import {
 } from '@tanstack/react-query';
 import { addStudentApi, deleteStudentApi, getStudentsApi } from '@/api/studentsApi';
 import type StudentInterface from '@/types/StudentInterface';
-import isServer from '@/utils/isServer';
 
 interface StudentsHookInterface {
   students: StudentInterface[];
   deleteStudentMutate: (studentId: number) => void;
+  addStudentMutate: (student: StudentInterface) => void;
 }
 
 const useStudents = (): StudentsHookInterface => {
@@ -32,7 +32,7 @@ const useStudents = (): StudentsHookInterface => {
       await queryClient.cancelQueries({ queryKey: ['students'] });
       // получаем данные из TanStackQuery
       const previousStudents = queryClient.getQueryData<StudentInterface[]>(['students']);
-      let updatedStudents = [...(previousStudents ?? [])] ;
+      let updatedStudents = [...(previousStudents ?? [])];
 
       if (!updatedStudents) return;
 
@@ -44,14 +44,21 @@ const useStudents = (): StudentsHookInterface => {
       // обновляем данные в TanStackQuery
       queryClient.setQueryData<StudentInterface[]>(['students'], updatedStudents);
 
+      console.log('deleteStudentMutate onMutate', previousStudents, updatedStudents);
+      debugger;
+
       return { previousStudents, updatedStudents };
     },
     onError: (err, variables, context) => {
-      console.log('>>> deleteStudentMutate  err', err);
+      console.log('deleteStudentMutate  err', err);
+      debugger;
       queryClient.setQueryData<StudentInterface[]>(['students'], context?.previousStudents);
     },
     // обновляем данные в случаи успешного выполнения mutationFn: async (studentId: number) => deleteStudentApi(studentId),
     onSuccess: async (studentId, variables, { previousStudents }) => {
+      console.log('deleteStudentMutate  onSuccess', studentId);
+      debugger;
+
       await queryClient.cancelQueries({ queryKey: ['students'] });
       // вариант 1 - запрос всех записей
       // refetch();
@@ -69,7 +76,7 @@ const useStudents = (): StudentsHookInterface => {
     // },
   });
 
-   const addStudentMutate = useMutation({
+  const addStudentMutate = useMutation({
     mutationFn: async (student: StudentInterface) => addStudentApi(student),
 
     onMutate: async (student: StudentInterface) => {
@@ -112,6 +119,7 @@ const useStudents = (): StudentsHookInterface => {
   return {
     students: data ?? [],
     deleteStudentMutate: deleteStudentMutate.mutate,
+    addStudentMutate: addStudentMutate.mutate,
   };
 };
 

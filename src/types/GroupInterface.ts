@@ -1,5 +1,5 @@
 interface GroupInterface {
-   id: number;
+  id: number;
   name: string;
   contacts: string;
 };
