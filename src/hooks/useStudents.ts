@@ -69,7 +69,7 @@ const useStudents = (): StudentsHookInterface => {
     // },
   });
 
-   const addStudentMutate = useMutation({
+    const addStudentMutate = useMutation({
     mutationFn: async (student: StudentInterface) => addStudentApi(student),
 
     onMutate: async (student: StudentInterface) => {
@@ -95,8 +95,10 @@ const useStudents = (): StudentsHookInterface => {
       queryClient.setQueryData<StudentInterface[]>(['students'], context?.previousStudents);
     },
     // обновляем данные в случаи успешного выполнения mutationFn: async (student: StudentInterface) => addStudentApi(student)
-    onSuccess: async (newStudent, variables, { previousStudents }) => {
+    onSuccess: async (newStudent, variables, { previousStudents, updatedStudents }) => {
       refetch();
+      // обновляем кэш групп так как обновились студенты в группе
+      queryClient.invalidateQueries({ queryKey: ['groups'] });
       // await queryClient.cancelQueries({ queryKey: ['students'] });
 
       // if (!previousStudents) {
@@ -104,14 +106,17 @@ const useStudents = (): StudentsHookInterface => {
       //   return;
       // }
 
-      // const updatedStudents = [...previousStudents.filter(s => s.id !== -1), newStudent];
-      // queryClient.setQueryData<StudentInterface[]>(['students'], updatedStudents);
+      // const updatedStudentsNew = updatedStudents.map((student: StudentInterface) => ({
+      //   ...(student.uuid === newStudent.uuid ? newStudent : student),
+      // }));
+      // queryClient.setQueryData<StudentInterface[]>(['students'], updatedStudentsNew);
     },
   });
 
   return {
     students: data ?? [],
     deleteStudentMutate: deleteStudentMutate.mutate,
+    addStudentMutate: addStudentMutate.mutate,
   };
 };
 

@@ -1,4 +1,5 @@
 interface StudentInterface {
+  uuid: number;
   id: number;
   firstName: string;
   lastName: string;
@@ -7,6 +8,7 @@ interface StudentInterface {
   isNew?: boolean;
   contacts?: string;
   groupId: number;
+  group?: GroupInterface;
 };
 
 export default StudentInterface;

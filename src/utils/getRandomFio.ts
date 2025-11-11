@@ -169,16 +169,30 @@ const part3 = [
   'умный',
 ];
 
+const part4 = [
+  'group1',
+  'group2',
+  'group3',
+  'group4',
+  'group5',
+  'group6',
+  'group7',
+  'group8',
+  'group9',
+  'group10',
+]
 
 export const getRandomFio = (): FioInterface => {
   const firstName = capitalize(part1[getRandomNumber(part1.length)]);
   const lastName = capitalize(part2[getRandomNumber(part2.length)]);
   const middleName = capitalize(part3[getRandomNumber(part3.length)]);
+  const studentgroup = capitalize(part4[getRandomNumber(part4.length)]);
 
   return {
     firstName,
     lastName,
     middleName,
+    studentgroup,
   };
 };
 
