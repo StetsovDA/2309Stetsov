@@ -3,24 +3,24 @@ import { Group } from './Group.entity';
 
 @Entity()
 export class Student {
-  @PrimaryGeneratedColumn()
-  id!: number;
-
-  @Column({ default: '' })
-  uuid?: string;
-
+  @PrimaryGeneratedColumn('uuid')
+  uuid: string | undefined;  // Change from string | number to just string
+  
+  @PrimaryColumn()
+  id: number | undefined;
+  
   @Column()
-  firstName!: string;
-
+  firstName: string | undefined;
+  
   @Column()
-  lastName!: string;
-
+  lastName: string | undefined;
+  
   @Column()
-  middleName!: string;
-
-  @Column({ default: '' })
+  middleName: string | undefined;
+  
+  @Column({ nullable: true })
   contacts?: string;
-
+  
   @Column()
   groupId!: number;
 

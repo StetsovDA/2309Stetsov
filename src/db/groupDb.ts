@@ -1,4 +1,3 @@
-import sqlite3 from 'sqlite3';
 import { Group } from './entity/Group.entity';
 import AppDataSource from './AppDataSource';
 import type GroupInterface from '@/types/GroupInterface';

@@ -1,13 +1,15 @@
+import GroupInterface from "./GroupInterface";
+
 interface StudentInterface {
-  uuid: number;
   id: number;
+  uuid?: string;
   firstName: string;
   lastName: string;
   middleName: string;
-  isDeleted?: boolean;
-  isNew?: boolean;
   contacts?: string;
   groupId: number;
+  isDeleted?: boolean;
+  isNew?: boolean;
   group?: GroupInterface;
 };
 

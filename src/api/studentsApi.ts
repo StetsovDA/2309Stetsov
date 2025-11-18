@@ -17,6 +17,8 @@ export const getStudentsApi = async (): Promise<StudentInterface[]> => {
 };
 
 export const deleteStudentApi = async (studentId: number): Promise<number> => {
+  console.log('deleteStudentApi', studentId);
+  debugger;
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API}students/${studentId}`, {
       method: 'DELETE',
@@ -25,13 +27,17 @@ export const deleteStudentApi = async (studentId: number): Promise<number> => {
     if (!response.ok) {
       throw new Error(`Ошибка HTTP: ${response.status}${response.statusText}`);
     }
+    console.log('deleteStudentApi ok', studentId);
+    debugger;
+
     return studentId;
   }
   catch (err) {
     console.log('>>> deleteStudentApi', err);
     return -1;
-  } 
+  }
 };
+
 export const addStudentApi = async (student: StudentInterface): Promise<StudentInterface> => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API}students`, {
@@ -51,6 +57,7 @@ export const addStudentApi = async (student: StudentInterface): Promise<StudentI
     throw err;
   }
 };
+
 
 export const getStudentByIdApi = async (id: string): Promise<StudentInterface | null> => {
   try {
