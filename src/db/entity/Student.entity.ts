@@ -3,28 +3,28 @@ import { Group } from './Group.entity';
 
 @Entity()
 export class Student {
-  @PrimaryGeneratedColumn('uuid')
-  uuid: string | undefined;  // Change from string | number to just string
-  
-  @PrimaryColumn()
-  id: number | undefined;
-  
+  @PrimaryGeneratedColumn()
+  id!: number;
+
+  @Column({ default: '' })
+  uuid?: string;
+
   @Column()
-  firstName: string | undefined;
-  
+  firstName!: string;
+
   @Column()
-  lastName: string | undefined;
-  
+  lastName!: string;
+
   @Column()
-  middleName: string | undefined;
-  
-  @Column({ nullable: true })
+  middleName!: string;
+
+  @Column({ default: '' })
   contacts?: string;
-  
+
   @Column()
   groupId!: number;
 
   @ManyToOne(() => Group, { nullable: true })
-@JoinColumn({ name: 'groupId' })
+  @JoinColumn({ name: 'groupId' })
   group?: Group;
 }

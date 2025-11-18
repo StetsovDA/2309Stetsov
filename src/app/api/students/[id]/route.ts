@@ -1,5 +1,5 @@
 import { deleteStudentDb } from '@/db/studentDb';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { type NextApiRequest } from 'next/types';
 
 interface Params {
@@ -31,7 +31,7 @@ export async function GET(
 
     const student = await getStudentByIdDb(studentId);
 
-    if (!student) {
+    if (!studentId) {
       console.log('>>> API GET: Student not found');
       return NextResponse.json(
         { error: 'Student not found' },

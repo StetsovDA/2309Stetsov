@@ -18,7 +18,7 @@ const useStudents = (): StudentsHookInterface => {
   const { data, refetch } = useQuery({
     queryKey: ['students'],
     queryFn: () => getStudentsApi(),
-    enabled: false,
+    enabled: true,
   });
 
   /**
@@ -69,6 +69,9 @@ const useStudents = (): StudentsHookInterface => {
       }
       const updatedStudents = previousStudents.filter((student: StudentInterface) => student.id !== studentId);
       queryClient.setQueryData<StudentInterface[]>(['students'], updatedStudents);
+
+      // обновляем кэш групп так как обновились студенты в группе
+      queryClient.invalidateQueries({ queryKey: ['groups'] });
     },
     // onSettled: (data, error, variables, context) => {
     //   // вызывается после выполнения запроса в случаи удачи или ошибке
@@ -76,7 +79,6 @@ const useStudents = (): StudentsHookInterface => {
     // },
   });
 
-    const addStudentMutate = useMutation({
   const addStudentMutate = useMutation({
     mutationFn: async (student: StudentInterface) => addStudentApi(student),
 
@@ -124,7 +126,6 @@ const useStudents = (): StudentsHookInterface => {
   return {
     students: data ?? [],
     deleteStudentMutate: deleteStudentMutate.mutate,
-    addStudentMutate: addStudentMutate.mutate,
     addStudentMutate: addStudentMutate.mutate,
   };
 };
