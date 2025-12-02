@@ -1,22 +1,22 @@
 @use './main';
 
 :root {  
-  --color: #272727;
-  --color2: #FFF;
+  --color: #06ecec;
+  --color2: #299177;
   --color3: #F00;
-  --background: #FFF;
+  --background: #c45353;
   --background2: #E1E1E1;
   --background3: #434343;  
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color: #d8d8d8;
+    --color: #00ff00;
     --color2: #000;
     --color3: #F00;
     --background: #000;
-    --background2: #1E1E1E;
-    --background3: #BABABA;
+    --background2: #2c3044;
+    --background3: #d4d1f8;
   }
 }
 
@@ -68,7 +68,8 @@ body {
 
 @mixin commons {
   font-family: PTSans;  
-  color: var(--item-color);
+  //color: var(--item-color);
+  color: #56e7ab;
   font-weight: 500;
 }
 
@@ -76,8 +77,8 @@ h1 {
   @include commons;
   font-size: 42px;
   font-weight: bold;
-  color: var(--current-color);
-
+  //color: var(--current-color);
+  color: rgb(6, 253, 101)
   // @media #{main.$mob} {
   //   font-size: main.vwMax(24px);
   // }
@@ -97,8 +98,8 @@ h3 {
   @include commons;
   font-size: 24px;
   font-weight: bold;
-  color: var(--link-color);
-
+  //color: var(--link-color);
+  color: #396e4f
   // @media #{main.$mob} {
   //   font-size: main.vwMax(18px);
   // }
@@ -109,11 +110,18 @@ h4 {
   @include commons;
   font-size: 20px;
   font-weight: bold;
-  color: var(--link-color);
-
+  //color: var(--link-color);
+  color: rgb(54, 68, 60);
   // @media #{main.$mob} {
   //   font-size: main.vwMax(18px);
   // }
 }
 
-
+a {
+    &:link {
+    color: var(--color);
+  }
+  &:visited {
+    color: var(--color);
+  }
+}
