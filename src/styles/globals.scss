@@ -12,7 +12,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --color: #00ff00;
-    --color2: #000;
+    --color2: #299177;
     --color3: #F00;
     --background: #000;
     --background2: #2c3044;
@@ -64,6 +64,16 @@ body {
   // @media #{main.$mob} {
   //   font-size: main.vwMax(14px);
   // }
+}
+input {
+color: var(--color3);
+background-color: var(--background3);
+height: 30px;
+}
+select {
+color: var(--color2);
+background-color: var(--background3);
+height: 30px;
 }
 
 @mixin commons {
@@ -120,8 +130,15 @@ h4 {
 a {
     &:link {
     color: var(--color);
+    width: 500px;
+    gap: 50px;
   }
   &:visited {
     color: var(--color);
   }
+}
+button {
+  color: var(--color2);
+background-color: var(--background3);
+height: 30px;
 }
